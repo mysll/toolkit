@@ -37,7 +37,7 @@ func AsString(src interface{}) string {
 // 		old = 5
 //		ParseStrNumberEx("1", &x, old, 1)
 //		结果： 6
-func ParseStrNumberEx(src string, dest interface{}, old interface{}, op int) error {
+func ParseStrNumberEx(src string, dest interface{}, old interface{}, op byte) error {
 	dpv := reflect.ValueOf(dest)
 	if dpv.Kind() != reflect.Ptr {
 		return errors.New("destination not a pointer")
@@ -61,18 +61,18 @@ func ParseStrNumberEx(src string, dest interface{}, old interface{}, op int) err
 			return fmt.Errorf("converting string %q to a %s: %v", src, dv.Kind(), err)
 		}
 		switch op {
-		case 1: // +
+		case '+':
 			dv.SetInt(oldpv.Int() + i64)
-		case 2: // -
+		case '-':
 			dv.SetInt(oldpv.Int() - i64)
-		case 3: // *
+		case '*':
 			dv.SetInt(int64(float64(oldpv.Int()) * float64(i64)))
-		case 4: // /
+		case '/':
 			dv.SetInt(int64(float64(oldpv.Int()) / float64(i64)))
-		case 5: // =
+		case '=': // =
 			dv.SetInt(i64)
 		default:
-			panic("unknown op")
+			return errors.New("unknown op")
 		}
 		return nil
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
@@ -81,18 +81,18 @@ func ParseStrNumberEx(src string, dest interface{}, old interface{}, op int) err
 			return fmt.Errorf("converting string %q to a %s: %v", src, dv.Kind(), err)
 		}
 		switch op {
-		case 1: // +
+		case '+':
 			dv.SetUint(oldpv.Uint() + u64)
-		case 2: // -
+		case '-':
 			dv.SetUint(oldpv.Uint() - u64)
-		case 3: // *
+		case '*':
 			dv.SetUint(uint64(float64(oldpv.Uint()) * float64(u64)))
-		case 4: // /
+		case '/':
 			dv.SetUint(uint64(float64(oldpv.Uint()) / float64(u64)))
-		case 5: // =
+		case '=':
 			dv.SetUint(u64)
 		default:
-			panic("unknown op")
+			return errors.New("unknown op")
 		}
 		return nil
 	case reflect.Float32, reflect.Float64:
@@ -101,18 +101,18 @@ func ParseStrNumberEx(src string, dest interface{}, old interface{}, op int) err
 			return fmt.Errorf("converting string %q to a %s: %v", src, dv.Kind(), err)
 		}
 		switch op {
-		case 1: // +
+		case '+':
 			dv.SetFloat(oldpv.Float() + f64)
-		case 2: // -
+		case '-':
 			dv.SetFloat(oldpv.Float() - f64)
-		case 3: // *
+		case '*':
 			dv.SetFloat(oldpv.Float() * f64)
-		case 4: // /
+		case '/':
 			dv.SetFloat(oldpv.Float() / f64)
-		case 5: // =
+		case '=':
 			dv.SetFloat(f64)
 		default:
-			panic("unknown op")
+			return errors.New("unknown op")
 		}
 		return nil
 	}
