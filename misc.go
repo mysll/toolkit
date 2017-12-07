@@ -7,6 +7,7 @@ import (
 	"runtime"
 )
 
+// 打开浏览器并显示网页
 func OpenBrowser(url string) {
 	var err error
 

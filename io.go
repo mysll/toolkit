@@ -38,7 +38,7 @@ func AllFiles(dir string, subdir bool, filter []string) []string {
 	return files
 }
 
-// 读文件
+// 读文件，返回文件内容
 func ReadFile(f string) ([]byte, error) {
 	file, err := os.Open(f)
 	if err != nil {

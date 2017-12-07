@@ -3,11 +3,11 @@ package toolkit
 import (
 	"errors"
 	"fmt"
-	"math"
 	"reflect"
 	"strconv"
 )
 
+// 任意数据类型转成字符串
 func AsString(src interface{}) string {
 	switch v := src.(type) {
 	case string:
@@ -31,6 +31,12 @@ func AsString(src interface{}) string {
 	return fmt.Sprintf("%v", src)
 }
 
+// 字符串类型转为数值类型并进行数值运算,op(1:+ 2:- 3:* 4:/ 5:=)
+// 例：
+//		var x, old int
+// 		old = 5
+//		ParseStrNumberEx("1", &x, old, 1)
+//		结果： 6
 func ParseStrNumberEx(src string, dest interface{}, old interface{}, op int) error {
 	dpv := reflect.ValueOf(dest)
 	if dpv.Kind() != reflect.Ptr {
@@ -113,6 +119,7 @@ func ParseStrNumberEx(src string, dest interface{}, old interface{}, op int) err
 	return nil
 }
 
+// 转换字符串到数据类型
 func ParseStrNumber(src string, dest interface{}) error {
 	dpv := reflect.ValueOf(dest)
 	if dpv.Kind() != reflect.Ptr {
@@ -153,10 +160,7 @@ func ParseStrNumber(src string, dest interface{}) error {
 
 }
 
-func IsEqual(f1, f2 float64) bool {
-	return math.Dim(f1, f2) < 0.00001
-}
-
+// 比较字符串和数值类型
 func CompareNumber(src string, dest interface{}) (int, error) {
 	dv := reflect.ValueOf(dest)
 	switch dv.Kind() {
@@ -198,7 +202,7 @@ func CompareNumber(src string, dest interface{}) (int, error) {
 		}
 		val := dv.Float()
 		switch {
-		case IsEqual(f64, val):
+		case IsEqual64(f64, val):
 			return 0, nil
 		case f64 > val:
 			return 1, nil
@@ -211,6 +215,7 @@ func CompareNumber(src string, dest interface{}) (int, error) {
 
 }
 
+// 任意未知数值类型转换
 func ParseNumber(src, dest interface{}) error {
 	sv := reflect.ValueOf(src)
 	dpv := reflect.ValueOf(dest)
