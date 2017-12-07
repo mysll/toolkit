@@ -5,6 +5,7 @@ import (
 	"log"
 	"os/exec"
 	"runtime"
+	"sync"
 )
 
 // 打开浏览器并显示网页
@@ -24,4 +25,17 @@ func OpenBrowser(url string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+// 等待组封装，自动计数的多任务封装
+type WaitGroupWrapper struct {
+	sync.WaitGroup
+}
+
+func (w *WaitGroupWrapper) Wrap(cb func()) {
+	w.Add(1)
+	go func() {
+		cb()
+		w.Done()
+	}()
 }
