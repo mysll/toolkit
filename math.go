@@ -49,3 +49,13 @@ func RandRange(min int, max int) int {
 func RandRangef(min float32, max float32) float32 {
 	return min + (max-min)*rand.Float32()
 }
+
+// 获取字符串hash值
+func DJBHash(str string) int32 {
+	hash := 5381
+	for _, c := range str {
+		hash += (hash << 5) + int(c)
+	}
+
+	return int32(hash & 0x7FFFFFFF)
+}
