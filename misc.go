@@ -3,9 +3,12 @@ package toolkit
 import (
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
+	"os/signal"
 	"runtime"
 	"sync"
+	"syscall"
 )
 
 // 打开浏览器并显示网页
@@ -38,4 +41,15 @@ func (w *WaitGroupWrapper) Wrap(cb func()) {
 		cb()
 		w.Done()
 	}()
+}
+
+func WaitForQuit() {
+	exitChan := make(chan int)
+	signalChan := make(chan os.Signal, 1)
+	go func() {
+		<-signalChan
+		exitChan <- 1
+	}()
+	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
+	<-exitChan
 }
