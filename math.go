@@ -23,7 +23,7 @@ func RandSeed() {
 
 // 获取[min, max)之间的int32随机数
 func RandRangeI32(min int32, max int32) int32 {
-	if max < min || max-min == 0 {
+	if max <= min {
 		return 0
 	}
 	return min + rand.Int31n(max-min)
@@ -31,7 +31,7 @@ func RandRangeI32(min int32, max int32) int32 {
 
 // 获取[min, max)之间的int64随机数
 func RandRangeI64(min int64, max int64) int64 {
-	if max < min || max-min == 0 {
+	if max <= min {
 		return 0
 	}
 	return min + rand.Int63n(max-min)
@@ -39,7 +39,7 @@ func RandRangeI64(min int64, max int64) int64 {
 
 // 获取[min, max)之间的int随机数
 func RandRange(min int, max int) int {
-	if max < min || max-min == 0 {
+	if max <= min {
 		return 0
 	}
 	return min + rand.Intn(max-min)
