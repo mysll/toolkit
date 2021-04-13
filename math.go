@@ -8,7 +8,7 @@ import (
 
 // 判断两个float64是否相等
 func IsEqual64(f1, f2 float64) bool {
-	return math.Abs(f1-f2) < 0.000001
+	return math.Abs(f1-f2) <= 0.000001
 }
 
 // 判断两个float32是否相等
