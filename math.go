@@ -8,12 +8,12 @@ import (
 
 // 判断两个float64是否相等
 func IsEqual64(f1, f2 float64) bool {
-	return math.Dim(f1, f2) < 0.000001
+	return math.Abs(f1-f2) < 0.000001
 }
 
 // 判断两个float32是否相等
 func IsEqual32(f1, f2 float32) bool {
-	return math.Dim(float64(f1), float64(f2)) < 0.000001
+	return IsEqual64(float64(f1), float64(f2))
 }
 
 // 随机数据种子
