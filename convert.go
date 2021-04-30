@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-// 任意数据类型转成字符串
+// AsString 任意数据类型转成字符串
 func AsString(src interface{}) string {
 	switch v := src.(type) {
 	case string:
@@ -31,7 +31,7 @@ func AsString(src interface{}) string {
 	return fmt.Sprintf("%v", src)
 }
 
-// 字符串类型转为数值类型并进行数值运算,op(1:+ 2:- 3:* 4:/ 5:=)
+// ParseStrNumberEx 字符串类型转为数值类型并进行数值运算,op(1:+ 2:- 3:* 4:/ 5:=)
 // 例：
 //		var x, old int
 // 		old = 5
@@ -119,7 +119,7 @@ func ParseStrNumberEx(src string, dest interface{}, old interface{}, op byte) er
 	return nil
 }
 
-// 转换字符串到数据类型
+// ParseStrNumber 转换字符串到数据类型
 func ParseStrNumber(src string, dest interface{}) error {
 	dpv := reflect.ValueOf(dest)
 	if dpv.Kind() != reflect.Ptr {
@@ -160,7 +160,7 @@ func ParseStrNumber(src string, dest interface{}) error {
 
 }
 
-// 比较字符串和数值类型
+// CompareNumber 比较字符串和数值类型
 func CompareNumber(src string, dest interface{}) (int, error) {
 	dv := reflect.ValueOf(dest)
 	switch dv.Kind() {
@@ -215,7 +215,7 @@ func CompareNumber(src string, dest interface{}) (int, error) {
 
 }
 
-// 任意未知数值类型转换
+// ParseNumber 任意未知数值类型转换
 func ParseNumber(src, dest interface{}) error {
 	sv := reflect.ValueOf(src)
 	dpv := reflect.ValueOf(dest)

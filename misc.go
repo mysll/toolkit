@@ -11,7 +11,7 @@ import (
 	"syscall"
 )
 
-// 打开浏览器并显示网页
+// OpenBrowser 打开浏览器并显示网页
 func OpenBrowser(url string) {
 	var err error
 
@@ -30,7 +30,7 @@ func OpenBrowser(url string) {
 	}
 }
 
-// 等待组封装，自动计数的多任务封装
+// WaitGroupWrapper 等待组封装，自动计数的多任务封装
 type WaitGroupWrapper struct {
 	sync.WaitGroup
 }
