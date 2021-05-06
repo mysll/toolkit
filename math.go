@@ -64,3 +64,8 @@ func DJBHash(str string) int32 {
 func Remap(srcMin, srcMax, dstMin, dstMax, value float64) float64 {
 	return (value-srcMin)/(srcMax-srcMin)*(dstMax-dstMin) + dstMin
 }
+
+// Remap32 map value(between srcMin and srcMax) from [srcMin, srcMax] to [dstMin, dstMax]
+func Remap32(srcMin, srcMax, dstMin, dstMax, value float32) float32 {
+	return (value-srcMin)/(srcMax-srcMin)*(dstMax-dstMin) + dstMin
+}
