@@ -69,3 +69,13 @@ func Remap(srcMin, srcMax, dstMin, dstMax, value float64) float64 {
 func Remap32(srcMin, srcMax, dstMin, dstMax, value float32) float32 {
 	return (value-srcMin)/(srcMax-srcMin)*(dstMax-dstMin) + dstMin
 }
+
+// Clamp value limit[min, max]
+func Clamp(value, min, max float64) float64 {
+	return math.Max(min, math.Min(max, value))
+}
+
+// Clamp32 value limit[min, max]
+func Clamp32(value, min, max float32) float32 {
+	return float32(math.Max(float64(min), math.Min(float64(max), float64(value))))
+}
